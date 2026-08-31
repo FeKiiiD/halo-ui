@@ -1,0 +1,12 @@
+node_modules/
+dist/
+demo-dist/
+storybook-static/
+*.tsbuildinfo
+shot-*.png
+form-*.png
+phase-*.png
+surf-*.png
+data-*.png
+an-*.png
+.DS_Store

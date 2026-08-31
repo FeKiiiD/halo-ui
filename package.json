@@ -1,0 +1,146 @@
+{
+  "name": "@halo/ui",
+  "version": "0.1.0",
+  "description": "Halo — a React component library. Semantic tokens, Tailwind v4, themeable.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js"
+    },
+    "./styles.css": "./dist/styles/index.css",
+    "./themes/kardloop.css": "./dist/styles/themes/kardloop.css",
+    "./package.json": "./package.json",
+    "./forms": {
+      "types": "./dist/forms/index.d.ts",
+      "import": "./dist/forms/index.js"
+    },
+    "./form": {
+      "types": "./dist/form/index.d.ts",
+      "import": "./dist/form/index.js"
+    },
+    "./feedback": {
+      "types": "./dist/feedback/index.d.ts",
+      "import": "./dist/feedback/index.js"
+    },
+    "./overlay": {
+      "types": "./dist/overlay/index.d.ts",
+      "import": "./dist/overlay/index.js"
+    },
+    "./cards": {
+      "types": "./dist/cards/index.d.ts",
+      "import": "./dist/cards/index.js"
+    },
+    "./navigation": {
+      "types": "./dist/navigation/index.d.ts",
+      "import": "./dist/navigation/index.js"
+    },
+    "./charts": {
+      "types": "./dist/charts/index.d.ts",
+      "import": "./dist/charts/index.js"
+    },
+    "./table": {
+      "types": "./dist/table/index.d.ts",
+      "import": "./dist/table/index.js"
+    },
+    "./matrix": {
+      "types": "./dist/matrix/index.d.ts",
+      "import": "./dist/matrix/index.js"
+    },
+    "./messaging": {
+      "types": "./dist/messaging/index.d.ts",
+      "import": "./dist/messaging/index.js"
+    },
+    "./leaflet.css": "./dist/styles/leaflet.css"
+  },
+  "scripts": {
+    "build": "tsup && npm run build:css",
+    "prepare": "npm run build",
+    "build:css": "node scripts/copy-css.mjs",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "demo": "vite build demo --config demo/vite.config.ts",
+    "demo:open": "node scripts/open-demo.mjs",
+    "demo:dev": "vite demo --config demo/vite.config.ts",
+    "check:cn": "node scripts/check-cn.mjs",
+    "check:phases": "node scripts/check-phases.mjs",
+    "check:boot": "node scripts/check-boot.mjs",
+    "check": "pnpm typecheck && pnpm check:cn && pnpm check:numbers && pnpm check:dates && pnpm check:price && pnpm check:chart && pnpm check:plot && pnpm check:diagram && pnpm check:swimlane && pnpm check:erd && pnpm check:flow && pnpm check:builder && pnpm check:geo && pnpm check:table && pnpm check:chart-data && pnpm check:whiteboard && pnpm check:rich-text && pnpm check:document && pnpm demo && pnpm check:boot && pnpm check:phases",
+    "check:numbers": "node scripts/check-number-format.mjs",
+    "check:dates": "node scripts/check-dates.mjs",
+    "check:price": "node scripts/check-price.mjs",
+    "check:chart": "node scripts/check-chart.mjs",
+    "check:plot": "node scripts/check-plot.mjs",
+    "check:diagram": "node scripts/check-diagram.mjs",
+    "check:swimlane": "node scripts/check-swimlane.mjs",
+    "check:erd": "node scripts/check-erd.mjs",
+    "check:flow": "node scripts/check-flow.mjs",
+    "check:builder": "node scripts/check-builder.mjs",
+    "check:geo": "node scripts/check-geo.mjs",
+    "check:table": "node scripts/check-table-query.mjs",
+    "check:chart-data": "node scripts/check-chart-data.mjs",
+    "check:whiteboard": "node scripts/check-whiteboard.mjs",
+    "check:rich-text": "node scripts/check-rich-text.mjs",
+    "check:document": "node scripts/check-document.mjs"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0 || ^19.0.0",
+    "react-dom": "^18.2.0 || ^19.0.0",
+    "leaflet": "^1.9.0"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.525.0",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "^8.6.14",
+    "@storybook/addon-themes": "^8.6.14",
+    "@storybook/react": "^8.6.14",
+    "@storybook/react-vite": "^8.6.14",
+    "@tailwindcss/vite": "^4.1.11",
+    "@types/leaflet": "^1.9.22",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "^0.28.2",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.525.0",
+    "playwright": "^1.62.1",
+    "react": "^19.1.2",
+    "react-dom": "^19.1.2",
+    "storybook": "^8.6.14",
+    "tailwindcss": "^4.1.11",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.2",
+    "vite": "^6.3.5",
+    "vite-plugin-singlefile": "^2.3.3"
+  },
+  "packageManager": "pnpm@9.15.9",
+  "peerDependenciesMeta": {
+    "leaflet": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FeKiiiD/halo-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FeKiiiD/halo-ui/issues"
+  },
+  "homepage": "https://github.com/FeKiiiD/halo-ui#readme"
+}

@@ -1,0 +1,20 @@
+/* The font @import must be the very first rule in the document: CSS drops any
+   @import that follows a regular rule, and Tailwind emits rules immediately. */
+@import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap");
+
+@import "tailwindcss";
+@import "../src/styles/index.css";
+
+/* Tailwind v4 finds classes by scanning source files. The library's own
+ * components live outside Storybook's default scan root, so they are declared
+ * explicitly — without this every className in src/ compiles to nothing. */
+@source "../src";
+@source "../stories";
+
+/* The preview canvas is a surface of the system, not a white void: components
+ * are judged against the ground they actually sit on, in both régimes. */
+body {
+  background-color: var(--color-surface-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}

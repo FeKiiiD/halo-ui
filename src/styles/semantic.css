@@ -1,0 +1,76 @@
+/* ---------------------------------------------------------------------------
+ * Halo — semantic aliases
+ *
+ * THE CONTRACT: components read these aliases and never the raw theme values.
+ * `--color-surface-card`, not `--color-paper`. `--color-text-primary`, not
+ * `--color-ink`. That indirection is the whole reason dark mode works and the
+ * whole reason a theme can be swapped without touching a component.
+ *
+ * A theme supplies the palette (see themes/*.css); this file decides what each
+ * colour is *for*, in both régimes.
+ * ------------------------------------------------------------------------ */
+
+:root {
+  /* Surfaces */
+  --color-surface-page: var(--color-paper);
+  --color-surface-alt: var(--color-mist);
+  --color-surface-card: var(--color-paper);
+  --color-surface-sunken: var(--color-mist-strong);
+  --color-surface-disabled: var(--color-neutral-disabled);
+  --color-surface-code: var(--color-neutral-code);
+
+  /* Text */
+  --color-text-primary: var(--color-ink);
+  --color-text-secondary: var(--color-text-muted-light);
+  --color-text-on-accent: var(--color-ink);
+
+  /* Borders */
+  --color-border-subtle: var(--color-hairline);
+  --color-border-strong: var(--color-ink);
+
+  /* Actions — primary is the accent, secondary is ink. */
+  --color-action-primary-bg: var(--color-accent);
+  --color-action-primary-bg-hover: var(--color-accent-deep);
+  --color-action-primary-bg-press: var(--color-accent-press);
+  --color-action-primary-fg: var(--color-ink);
+  --color-action-secondary-bg: var(--color-ink);
+  --color-action-secondary-bg-hover: var(--color-ink-hairline);
+  --color-action-secondary-fg: var(--color-paper);
+
+  /* Icon chip — flips to the accent in dark mode so the glyph stays legible. */
+  --color-chip-neutral-bg: var(--color-ink);
+  --color-chip-neutral-fg: var(--color-paper);
+
+  /* Focus ring — black on light, accent on dark. */
+  --color-focus-ring: var(--color-ink);
+}
+
+/* The dark régime re-points the aliases; it never redefines what a component
+ * asks for. Both selectors are supported so the library drops into a project
+ * using either the `data-theme` attribute or a `.dark` class (Tailwind's
+ * default dark variant). */
+:root[data-theme="dark"],
+.dark,
+.halo-dark {
+  --color-surface-page: var(--color-ink);
+  --color-surface-alt: var(--color-ink-elevated);
+  --color-surface-card: var(--color-ink-elevated);
+  --color-surface-sunken: var(--color-ink-sunken);
+  --color-surface-disabled: var(--color-neutral-disabled-dark);
+  --color-surface-code: var(--color-neutral-code-dark);
+
+  --color-text-primary: var(--color-paper);
+  --color-text-secondary: var(--color-text-muted-dark);
+
+  --color-border-subtle: var(--color-ink-hairline);
+  --color-border-strong: var(--color-paper);
+
+  --color-action-secondary-bg: var(--color-paper);
+  --color-action-secondary-bg-hover: var(--color-mist);
+  --color-action-secondary-fg: var(--color-ink);
+
+  --color-chip-neutral-bg: var(--color-accent);
+  --color-chip-neutral-fg: var(--color-ink);
+
+  --color-focus-ring: var(--color-accent);
+}

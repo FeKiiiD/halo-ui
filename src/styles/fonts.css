@@ -1,0 +1,29 @@
+/* ---------------------------------------------------------------------------
+ * Halo — fonts (reference, not imported by index.css)
+ *
+ * WHY THIS IS NOT IN THE ENTRY POINT: CSS requires every @import to precede all
+ * other rules. By the time a consumer's stylesheet reaches `@import
+ * "@halo/ui/styles.css"`, Tailwind has already emitted rules — so a font
+ * @import nested inside it is silently dropped and the family never loads.
+ *
+ * Put this line first in your own stylesheet, above `@import "tailwindcss"`:
+ *
+ *   @import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap");
+ *
+ * BEFORE PRODUCTION: self-host instead. A CDN in the critical path costs a
+ * connection and a render delay on exactly the screens — hero, counter mode —
+ * where the type carries the most weight. Drop the .woff2 files into your app
+ * and use @font-face rules of this shape:
+ *
+ *   @font-face {
+ *     font-family: "Switzer";
+ *     src: url("/fonts/Switzer-Variable.woff2") format("woff2-variations");
+ *     font-weight: 400 700;
+ *     font-display: swap;
+ *   }
+ *
+ * Do not substitute another family: the negative tracking in the type ramp is
+ * calibrated against Switzer's widths.
+ * ------------------------------------------------------------------------ */
+
+@import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap");

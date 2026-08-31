@@ -1,0 +1,38 @@
+/* ---------------------------------------------------------------------------
+ * Halo — stylesheet entry point
+ *
+ * A consumer imports this once, AFTER Tailwind:
+ *
+ *   @import "tailwindcss";
+ *   @import "@halo/ui/styles.css";
+ *   @source "../node_modules/@halo/ui/dist";
+ *
+ * FONTS ARE NOT IMPORTED HERE. CSS requires every @import to precede all other
+ * rules, and by this point Tailwind has already emitted some — so a font
+ * @import nested in this file is silently dropped by the browser. Load the
+ * family yourself, as the very first line of your stylesheet:
+ *
+ *   @import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap");
+ *
+ * or, preferably, self-host it with @font-face rules. See styles/fonts.css for
+ * the reference declaration.
+ *
+ * To brand another product, skip this file and compose the layers yourself,
+ * substituting your own theme:
+ *
+ *   @import "@halo/ui/dist/styles/primitives.css";
+ *   @import "./my-theme.css";
+ *   @import "@halo/ui/dist/styles/semantic.css";
+ *   @import "@halo/ui/dist/styles/theme.css";
+ *   @import "@halo/ui/dist/styles/keyframes.css";
+ *   @import "@halo/ui/dist/styles/utilities.css";
+ *
+ * Order matters: a theme must land before semantic.css, which reads it.
+ * ------------------------------------------------------------------------ */
+
+@import "./primitives.css";
+@import "./themes/kardloop.css";
+@import "./semantic.css";
+@import "./theme.css";
+@import "./keyframes.css";
+@import "./utilities.css";

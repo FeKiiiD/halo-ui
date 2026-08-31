@@ -1,0 +1,158 @@
+/* ---------------------------------------------------------------------------
+ * Halo — Tailwind v4 bridge
+ *
+ * `@theme inline` republishes the semantic aliases as Tailwind utilities, so a
+ * component can write `bg-surface-card` / `rounded-pill` / `duration-base`
+ * instead of an inline style — while the value still resolves at runtime
+ * through the alias chain. `inline` is what makes that work: without it
+ * Tailwind would freeze the value at build time and dark mode would stop
+ * responding.
+ *
+ * Anything listed here is available to consumers too: a project importing
+ * halo/styles.css gets `text-accent`, `p-card`, `ease-standard` and the rest
+ * in its own markup.
+ * ------------------------------------------------------------------------ */
+
+@theme inline {
+  /* --- Colour: raw palette (for the rare deliberate use) --------------- */
+  --color-ink: var(--color-ink);
+  --color-ink-elevated: var(--color-ink-elevated);
+  --color-ink-hairline: var(--color-ink-hairline);
+  --color-paper: var(--color-paper);
+  --color-mist: var(--color-mist);
+  --color-mist-strong: var(--color-mist-strong);
+  --color-hairline: var(--color-hairline);
+
+  --color-accent: var(--color-accent);
+  --color-accent-deep: var(--color-accent-deep);
+  --color-accent-press: var(--color-accent-press);
+  --color-accent-ink: var(--color-accent-ink);
+
+  /* --- Colour: semantic aliases (what components should use) ----------- */
+  --color-surface-page: var(--color-surface-page);
+  --color-surface-alt: var(--color-surface-alt);
+  --color-surface-card: var(--color-surface-card);
+  --color-surface-sunken: var(--color-surface-sunken);
+  --color-surface-disabled: var(--color-surface-disabled);
+  --color-surface-code: var(--color-surface-code);
+
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-on-accent: var(--color-text-on-accent);
+
+  --color-border-subtle: var(--color-border-subtle);
+  --color-border-strong: var(--color-border-strong);
+
+  --color-action-primary-bg: var(--color-action-primary-bg);
+  --color-action-primary-bg-hover: var(--color-action-primary-bg-hover);
+  --color-action-primary-bg-press: var(--color-action-primary-bg-press);
+  --color-action-primary-fg: var(--color-action-primary-fg);
+  --color-action-secondary-bg: var(--color-action-secondary-bg);
+  --color-action-secondary-bg-hover: var(--color-action-secondary-bg-hover);
+  --color-action-secondary-fg: var(--color-action-secondary-fg);
+
+  --color-chip-neutral-bg: var(--color-chip-neutral-bg);
+  --color-chip-neutral-fg: var(--color-chip-neutral-fg);
+  --color-focus-ring: var(--color-focus-ring);
+
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-info: var(--color-info);
+  --color-success-soft: var(--color-success-soft);
+  --color-warning-soft: var(--color-warning-soft);
+  --color-error-soft: var(--color-error-soft);
+  --color-info-soft: var(--color-info-soft);
+
+  /* --- Spacing ---------------------------------------------------------
+   * Tailwind's numeric spacing is multiplicative by default (p-4 = 4 × 4px).
+   * The scale here matches that exactly, so p-1/2/3/4/6/8/12/16/20 land on
+   * the design scale. The gaps (5, 7, 9, 10) are intentional — see
+   * primitives.css.
+   * ------------------------------------------------------------------- */
+  --spacing: 4px;
+  --spacing-card: var(--card-padding);
+  --spacing-gutter: var(--grid-gutter);
+  --spacing-section: var(--section-y);
+  --spacing-page: var(--page-gutter);
+  --spacing-control-px: var(--control-px);
+
+  /* --- Sizing ----------------------------------------------------------- */
+  --container-content: var(--content-max);
+  --height-control: var(--control-h);
+  --height-control-counter: var(--control-h-counter);
+
+  /* --- Radii ------------------------------------------------------------ */
+  --radius-pill: var(--radius-pill);
+  --radius-card: var(--radius-card);
+  --radius-panel: var(--radius-panel);
+  --radius-chip: var(--radius-chip);
+  --radius-input: var(--radius-input);
+
+  /* --- Shadows ---------------------------------------------------------- */
+  --shadow-float: var(--shadow-float);
+
+  /* --- Motion ----------------------------------------------------------- */
+  --ease-standard: var(--ease-standard);
+  --animate-duration-fast: var(--dur-fast);
+  --animate-duration-base: var(--dur-base);
+  --animate-duration-slow: var(--dur-slow);
+
+  /* --- Type ------------------------------------------------------------
+   * Registered as font-size utilities carrying their own line-height and
+   * tracking, so `text-display-xl` applies all three at once and a heading
+   * can never be set at the right size with the wrong tracking.
+   * ------------------------------------------------------------------- */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --text-display-xl: var(--fs-display-xl);
+  --text-display-xl--line-height: var(--lh-display-xl);
+  --text-display-xl--letter-spacing: var(--tr-display-xl);
+  --text-display-xl--font-weight: var(--fw-semibold);
+
+  --text-display-l: var(--fs-display-l);
+  --text-display-l--line-height: var(--lh-display-l);
+  --text-display-l--letter-spacing: var(--tr-display-l);
+  --text-display-l--font-weight: var(--fw-semibold);
+
+  --text-heading-m: var(--fs-heading-m);
+  --text-heading-m--line-height: var(--lh-heading-m);
+  --text-heading-m--letter-spacing: var(--tr-heading-m);
+  --text-heading-m--font-weight: var(--fw-semibold);
+
+  --text-heading-s: var(--fs-heading-s);
+  --text-heading-s--line-height: var(--lh-heading-s);
+  --text-heading-s--letter-spacing: var(--tr-heading-s);
+  --text-heading-s--font-weight: var(--fw-semibold);
+
+  --text-eyebrow: var(--fs-eyebrow);
+  --text-eyebrow--line-height: var(--lh-eyebrow);
+  --text-eyebrow--font-weight: var(--fw-semibold);
+
+  --text-body-l: var(--fs-body-l);
+  --text-body-l--line-height: var(--lh-body-l);
+
+  --text-body: var(--fs-body);
+  --text-body--line-height: var(--lh-body);
+
+  --text-body-s: var(--fs-body-s);
+  --text-body-s--line-height: var(--lh-body-s);
+
+  --text-stat: var(--fs-stat);
+  --text-stat--line-height: var(--lh-stat);
+  --text-stat--letter-spacing: var(--tr-stat);
+  --text-stat--font-weight: var(--fw-semibold);
+
+  --text-button: var(--fs-button);
+  --text-button--line-height: var(--lh-button);
+
+  --text-app-title: var(--fs-app-title);
+  --text-app-title--line-height: var(--lh-app-title);
+  --text-app-title--letter-spacing: var(--tr-heading-m);
+  --text-app-title--font-weight: var(--fw-semibold);
+}
+
+/* The dark variant is driven by the same two hooks the semantic layer honours,
+ * so `dark:` utilities in consumer markup stay in step with the token flip. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));

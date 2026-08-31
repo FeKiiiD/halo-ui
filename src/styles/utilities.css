@@ -1,0 +1,66 @@
+/* ---------------------------------------------------------------------------
+ * Halo — utilities
+ *
+ * The handful of composites that Tailwind's own utilities cannot express, plus
+ * a base layer. Everything else is a Tailwind class in the component itself.
+ * ------------------------------------------------------------------------ */
+
+@layer base {
+  /* The page ground. A consumer applies this to <body> (or a root shell) so
+   * the surface and the text colour follow the theme flip. */
+  .halo-surface {
+    background-color: var(--color-surface-page);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+  }
+
+  a {
+    color: var(--color-text-primary);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  a:hover {
+    color: var(--color-text-secondary);
+  }
+}
+
+@utility halo-container {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+/* The hero ground: three blurred radials over ink. Never a linear gradient. */
+@utility halo-halo {
+  background-color: var(--color-ink);
+  background-image: var(--halo);
+}
+
+/* The focus ring, as one utility so every interactive component rings
+ * identically: 2px, offset 2px, keyboard focus only — a mouse click never
+ * leaves an outline behind, but a keyboard user is never left without one. */
+@utility halo-focus {
+  &:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus-ring);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+/**
+ * A loading placeholder. The gradient travels across the shape, so a slow
+ * request still reads as working rather than stalled.
+ *
+ * Deliberately a token rather than a component: skeletons belong to the shape
+ * of the thing being loaded, and every list, table and card needs its own.
+ */
+@utility bg-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-mist) 0%,
+    var(--color-mist-strong) 50%,
+    var(--color-mist) 100%
+  );
+  background-size: 360px 100%;
+  animation: halo-shimmer 1100ms linear infinite;
+}

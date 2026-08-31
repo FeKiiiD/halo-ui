@@ -1,0 +1,1037 @@
+/* ---------------------------------------------------------------------------
+ * Halo — keyframes
+ *
+ * The source system injected a <style> tag at runtime from inside each
+ * component (`document.createElement("style")`, 47 occurrences). That breaks
+ * under SSR and re-runs on every mount. Declaring them once here is both
+ * correct and cheaper.
+ *
+ * Names are prefixed `halo-` to avoid colliding with a consumer's own
+ * animations.
+ * ------------------------------------------------------------------------ */
+
+@keyframes halo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* A field message arriving: a short drop-in, never a slide. */
+@keyframes halo-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* A floating panel opening. The scale is deliberately shallow (0.98): the
+ * system has no bounce and no spring anywhere. */
+@keyframes halo-panel-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Verdict choreography, shared by the animated buttons and by Input's
+ * validating state. */
+@keyframes halo-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Draws an SVG path by retracting its dash offset. The element must set
+ * stroke-dasharray and a starting stroke-dashoffset itself. */
+@keyframes halo-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes halo-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-3px);
+  }
+  40% {
+    transform: translateX(3px);
+  }
+  60% {
+    transform: translateX(-2px);
+  }
+  80% {
+    transform: translateX(1px);
+  }
+}
+
+/* One confetti particle. The element supplies --dx / --dy / --r for its own
+ * trajectory, which is what lets a single keyframe serve a whole burst. */
+@keyframes halo-spark {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(1) rotate(var(--r));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The choreographed buttons are an identity feature, so they are not
+   * removed outright — they are collapsed to their end state. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Choreographed buttons
+ *
+ * These are the system's only sustained motion, and each is tied to one
+ * moment: sending something out, crediting something back, waiting on an
+ * assistant, writing to a server. Everything else in the system animates for
+ * 120–320ms and stops.
+ * ------------------------------------------------------------------------ */
+
+/* --- Save: the shutter drops, the reel turns ---------------------------- */
+@keyframes halo-save-insert {
+  0% {
+    transform: translateY(-9px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(1px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* The whole floppy breathing while the write is in flight. */
+@keyframes halo-save-nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(-1.5px);
+  }
+}
+
+/* --- Copy: the front sheet lifts off the stack, then settles ------------ */
+@keyframes halo-copy-lift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  45% {
+    transform: translate(2.6px, -3.4px) rotate(-7deg);
+  }
+  75% {
+    transform: translate(1px, -1.2px) rotate(-2deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes halo-copy-back {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(0.96);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes halo-copy-flash {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* --- Search: the lens sweeps the lines ---------------------------------- */
+@keyframes halo-search-sweep {
+  0% {
+    transform: translate(-4.2px, 0);
+  }
+  25% {
+    transform: translate(-1.4px, 1.2px);
+  }
+  50% {
+    transform: translate(1.4px, -0.6px);
+  }
+  75% {
+    transform: translate(4.2px, 1px);
+  }
+  100% {
+    transform: translate(-4.2px, 0);
+  }
+}
+
+/* Lines grow as the lens passes over them. */
+@keyframes halo-search-line {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.45;
+  }
+  45% {
+    transform: scaleX(1.28);
+    opacity: 1;
+  }
+}
+
+@keyframes halo-search-zoom {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.14);
+  }
+}
+
+/* --- Send: the plane takes off, cruises, then leaves -------------------- */
+@keyframes halo-send-takeoff {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-4px) rotate(43deg);
+  }
+}
+
+@keyframes halo-send-cruise {
+  0%,
+  100% {
+    transform: translateX(-4px) rotate(43deg);
+  }
+  50% {
+    transform: translateX(1px) rotate(43deg);
+  }
+}
+
+@keyframes halo-send-exit {
+  0% {
+    transform: translateX(-4px) rotate(43deg);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.4);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120px) rotate(43deg);
+    opacity: 0;
+  }
+}
+
+/* The failure: it pitches up, stalls, and drops out of sight. */
+@keyframes halo-send-stall {
+  0% {
+    transform: translateX(-4px) rotate(43deg);
+  }
+  45% {
+    transform: translateX(-10px) rotate(58deg);
+  }
+  100% {
+    transform: translateX(-14px) rotate(96deg);
+    opacity: 0;
+  }
+}
+
+@keyframes halo-send-streak {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  45% {
+    opacity: 0.9;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(0.2) translateX(40px);
+  }
+}
+
+@keyframes halo-send-streak-loop {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+  35% {
+    opacity: 0.85;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(0.15) translateX(26px);
+  }
+}
+
+/* The label collapses to nothing so the plane owns the button while flying. */
+@keyframes halo-send-label {
+  0% {
+    opacity: 1;
+    max-width: 240px;
+    margin-left: 0;
+  }
+  55% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    max-width: 0;
+    margin-left: -8px;
+  }
+}
+
+/* --- Reward: the gift shakes, the lid flies off ------------------------- */
+@keyframes halo-reward-wobble {
+  0%,
+  100% {
+    transform: rotate(-5deg) translateY(0);
+  }
+  25% {
+    transform: rotate(5deg) translateY(-1px);
+  }
+  50% {
+    transform: rotate(-4deg) translateY(0);
+  }
+  75% {
+    transform: rotate(4deg) translateY(-1px);
+  }
+}
+
+@keyframes halo-reward-lid {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+  45% {
+    transform: translateY(-13px) rotate(-16deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-26px) rotate(-34deg);
+    opacity: 0;
+  }
+}
+
+/* The box compresses as the lid leaves, then rebounds. */
+@keyframes halo-reward-box {
+  0% {
+    transform: scaleY(1) translateY(0);
+  }
+  35% {
+    transform: scaleY(0.82) translateY(2px);
+  }
+  70% {
+    transform: scaleY(1.06) translateY(-1px);
+  }
+  100% {
+    transform: scaleY(1) translateY(0);
+  }
+}
+
+/* --- Scan: the beam travels the code ------------------------------------ */
+@keyframes halo-scan-beam {
+  0% {
+    transform: translateY(-6.2px);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(6.2px);
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-6.2px);
+    opacity: 0;
+  }
+}
+
+@keyframes halo-scan-finder {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Modules light as the beam reaches them. */
+@keyframes halo-scan-module {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+/* The frame brackets pinch inward once the code reads. */
+@keyframes halo-scan-lock {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(0.86);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* --- AI: the robot thinks ----------------------------------------------- */
+@keyframes halo-ai-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-1.5px) rotate(3deg);
+  }
+}
+
+@keyframes halo-ai-antenna {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+@keyframes halo-ai-scan {
+  0%,
+  100% {
+    transform: translateX(-1.4px);
+  }
+  50% {
+    transform: translateX(1.4px);
+  }
+}
+
+/* The accent sweeping across the button while it waits. */
+@keyframes halo-ai-sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+/* One thinking label giving way to the next. */
+@keyframes halo-ai-swap {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  12% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  88% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+/* --- Envelope: the flap opens, the letter rises ------------------------- */
+@keyframes halo-env-flap {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-165deg);
+  }
+}
+
+@keyframes halo-env-letter {
+  0% {
+    transform: translateY(0) scale(0.9);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  55% {
+    transform: translateY(-7px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-9px) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes halo-env-hover {
+  0%,
+  100% {
+    transform: translateY(-9px);
+  }
+  50% {
+    transform: translateY(-11px);
+  }
+}
+
+/* The three thinking dots, each trailing the last. */
+@keyframes halo-ai-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Overlays
+ *
+ * A dialog grows out of the control that opened it rather than appearing at
+ * the centre of the screen: --tx / --ty carry the offset from the trigger to
+ * the viewport centre, so the panel travels the actual distance. The blur
+ * resolving as it lands is what makes the growth read as focus rather than
+ * as a zoom.
+ * ------------------------------------------------------------------------ */
+
+@keyframes halo-dialog-in {
+  0% {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translate(calc(var(--tx) * 0.18), calc(var(--ty) * 0.18)) scale(0.9);
+  }
+  38% {
+    opacity: 1;
+    filter: blur(2px);
+  }
+  68% {
+    transform: translate(0, 0) scale(1.012);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes halo-dialog-out {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate(calc(var(--tx) * 0.12), calc(var(--ty) * 0.12)) scale(0.94);
+  }
+}
+
+@keyframes halo-veil-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes halo-veil-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Dialog contents arriving in sequence behind the panel: title, body, actions. */
+@keyframes halo-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * File rows
+ * ------------------------------------------------------------------------ */
+
+@keyframes halo-file-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Leaving sideways while collapsing its own height, so the rows below close
+ * the gap rather than jumping up. */
+@keyframes halo-file-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+    max-height: 64px;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(14px);
+    max-height: 0;
+    margin-top: -6px;
+  }
+}
+
+/* Barber-pole stripes travelling along a progress bar: a stalled transfer
+ * still reads as in progress rather than frozen. */
+@keyframes halo-file-bar {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 24px 0;
+  }
+}
+
+/* The upload arrow bobbing while a file is dragged over the zone. */
+@keyframes halo-file-arrow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* A chip arriving in a list. The scale overshoot is small (1.04) — enough to
+ * register that something landed, not enough to read as a bounce. */
+@keyframes halo-chip-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes halo-shimmer {
+  0% {
+    background-position: -180px 0;
+  }
+  100% {
+    background-position: 180px 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Overlay panels
+ *
+ * A centred dialog rises and settles; a drawer slides from its edge; a sheet
+ * comes up from the bottom. Entry uses a decelerating curve so the panel
+ * arrives gently, exit an accelerating one so dismissal feels immediate —
+ * closing should never feel slower than opening.
+ * ------------------------------------------------------------------------ */
+
+@keyframes halo-overlay-in {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes halo-overlay-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+}
+
+@keyframes halo-drawer-right-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes halo-drawer-right-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes halo-drawer-left-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes halo-drawer-left-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes halo-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes halo-sheet-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+/* One step of a wizard replacing the last, travelling in the reading direction. */
+@keyframes halo-step-in {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Navigation
+ * ------------------------------------------------------------------------ */
+
+/* A sub-menu arriving beside its row: it comes from the parent's edge rather
+ * than fading in place, so the relationship between the two is visible. */
+@keyframes halo-menu-fly {
+  0% {
+    opacity: 0;
+    transform: translateX(-4px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* A navbar panel dropping under the bar. */
+@keyframes halo-nav-panel {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Moving between two open navbar menus: the panel slides across rather than
+ * dropping again, so the bar reads as one surface changing contents. */
+@keyframes halo-nav-swap-right {
+  0% {
+    opacity: 0.25;
+    transform: translateX(-14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes halo-nav-swap-left {
+  0% {
+    opacity: 0.25;
+    transform: translateX(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Media tiles arriving after the mega panel that holds them. */
+@keyframes halo-mega-cards {
+  0% {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* A tooltip or read-out appearing. Deliberately faster than anything else in
+ * the system (110ms): it tracks a pointer, and anything slower lags behind it. */
+@keyframes halo-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* A placeholder breathing, for a block too small to shimmer across. */
+@keyframes halo-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+/* A table row arriving after a filter or a sort. */
+@keyframes halo-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* A consent bar rising into place. Slower than a toast (320ms): it is asking
+ * for a decision, not reporting one. */
+@keyframes halo-consent-in {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Typing indicator dots, each trailing the last. Shared by the conversation
+ * list and the thread, so the two never drift out of step. */
+@keyframes halo-typing {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+/* A message bubble arriving. */
+@keyframes halo-message-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* A Gantt bar drawing itself from its start date. Scale rather than width, so
+   the browser animates on the compositor and a hundred rows stay smooth. */
+@keyframes halo-gantt-bar-in {
+  0% {
+    transform: translateY(-50%) scaleX(0.02);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50%) scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* A milestone. The 45deg is what makes it a diamond, so every stop carries it. */
+@keyframes halo-gantt-diamond-in {
+  0% {
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.15);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* The pulse around a recording control. color-mix rather than a literal rgba,
+   so a theme that changes the accent changes the halo with it. */
+@keyframes halo-voice-halo {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 55%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 12px color-mix(in srgb, var(--color-accent) 0%, transparent);
+  }
+}
+
+/* A shape or menu appearing on the diagram canvas. */
+@keyframes halo-diagram-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* The dashed wire that follows the pointer while connecting two shapes. */
+@keyframes halo-diagram-dash {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+
+/* A step arriving in a swimlane. */
+@keyframes halo-swim-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* A failing flow node. A long pause then a short shudder: the card draws the
+   eye without buzzing continuously at whoever is reading the rest of the
+   canvas. */
+@keyframes halo-flow-shake {
+  0%,
+  72%,
+  100% {
+    transform: translateX(0);
+  }
+  76% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+  84% {
+    transform: translateX(-3px);
+  }
+  88% {
+    transform: translateX(2px);
+  }
+  92% {
+    transform: translateX(-1px);
+  }
+}

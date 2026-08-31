@@ -1,0 +1,15 @@
+/* The font @import must be the very first rule in the document: CSS drops any
+   @import that follows a regular rule, and Tailwind emits rules immediately. */
+@import url("https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap");
+
+@import "tailwindcss";
+@import "../src/styles/index.css";
+
+@source "../src";
+@source ".";
+
+body {
+  background-color: var(--color-surface-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}

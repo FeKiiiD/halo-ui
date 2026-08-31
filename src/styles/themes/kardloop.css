@@ -1,0 +1,151 @@
+/* ---------------------------------------------------------------------------
+ * Halo — Kardloop theme
+ *
+ * The palette, the type family and the halo, and nothing else. Every value
+ * here comes verbatim from the source design system. To brand another
+ * product, copy this file, change the values, and change nothing else: the
+ * semantic layer and all components already read through the aliases.
+ *
+ * PROVENANCE: the source guide flags these colours as eyedropper estimates
+ * taken from a compressed capture, never confirmed against an original.
+ * Treat them as provisional until measured.
+ * ------------------------------------------------------------------------ */
+
+:root {
+  /* --- Neutrals ------------------------------------------------------- */
+  --color-ink: #0b0b0b;
+  --color-ink-elevated: #141414;
+  --color-ink-hairline: #242424;
+  --color-ink-sunken: #1c1c1c;
+  --color-paper: #ffffff;
+  --color-mist: #e7f0ee;
+  --color-mist-strong: #d8ece8;
+  --color-hairline: #e4e9e8;
+
+  --color-text-muted-light: #5c5c5c;
+  --color-text-muted-dark: #9aa0a0;
+
+  --color-neutral-disabled: #f1f2f2;
+  --color-neutral-code: #f5f6f6;
+  --color-neutral-disabled-dark: #1a1a1a;
+  --color-neutral-code-dark: #161616;
+
+  /* --- Accent ----------------------------------------------------------
+   * THE ACCENT RULE — the most important convention in the system.
+   *
+   * The accent has exactly four permitted homes:
+   *   1. the primary button
+   *   2. a key figure (a stat)
+   *   3. the active navigation state
+   *   4. the icon chip of the single inverted card in a grid
+   *
+   * And four prohibitions:
+   *   - Always ink text on the accent, never white.
+   *   - One accent element per visible screen. Two primary buttons side by
+   *     side cancel each other out.
+   *   - Never across large surfaces — beyond a button or a card-sized panel
+   *     it tires the eye.
+   *   - Never as a status colour. Success and error have their own family;
+   *     using the accent there costs it its call-to-action meaning.
+   * ------------------------------------------------------------------- */
+  --color-accent: #d9f84f;
+  --color-accent-deep: #b9dd2e;
+  --color-accent-press: #a6c823;
+  --color-accent-ink: #0b0b0b;
+
+  /* --- Status ----------------------------------------------------------
+   * Deliberately outside the accent family. Light régime values.
+   * ------------------------------------------------------------------- */
+  --color-success: #0f8a5f;
+  --color-warning: #d97a00;
+  --color-error: #d6314a;
+  --color-info: #2e4663;
+  --color-success-soft: #e4f3ed;
+  --color-warning-soft: #fbeedd;
+  --color-error-soft: #fae5e8;
+  --color-info-soft: #e7ebf0;
+
+  /* --- Halo ------------------------------------------------------------
+   * Three superimposed blurred radials bleeding off the edges over ink.
+   * Never a linear gradient — that substitution is the quickest way to make
+   * the hero read as an approximate copy.
+   * ------------------------------------------------------------------- */
+  --color-halo-1: #3bd07e;
+  --color-halo-2: #0c6b4f;
+  --color-halo-3: #1e5c55;
+  --halo:
+    radial-gradient(60% 70% at 50% 108%, rgb(59 208 126 / 0.7) 0%, rgb(59 208 126 / 0) 70%),
+    radial-gradient(55% 60% at 6% 104%, rgb(12 107 79 / 0.7) 0%, rgb(12 107 79 / 0) 72%),
+    radial-gradient(40% 46% at 92% 6%, rgb(30 92 85 / 0.6) 0%, rgb(30 92 85 / 0) 70%);
+
+  /* --- Type ------------------------------------------------------------
+   * Switzer (Fontshare, free). No binaries ship with this library — the
+   * consumer self-hosts and replaces the @import in styles/fonts.css. Do not
+   * substitute another family.
+   * ------------------------------------------------------------------- */
+  --font-sans: "Switzer", "Switzer Variable", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* --- Charts ----------------------------------------------------------
+   * A separate series palette, outside the accent family, so the accent
+   * keeps its call-to-action job. --chart-highlight is the one exception:
+   * it marks the single series under discussion.
+   * ------------------------------------------------------------------- */
+  --chart-1: #0b0b0b;
+  --chart-2: #3bd07e;
+  --chart-3: #0c6b4f;
+  --chart-4: #1e5c55;
+  --chart-5: #9aa0a0;
+  --chart-6: #c9d0ce;
+  --chart-highlight: var(--color-accent);
+  --chart-highlight-soft: rgb(217 248 79 / 0.3);
+  --chart-grid: var(--color-hairline);
+  --chart-axis: var(--color-text-muted-light);
+  --chart-plot: transparent;
+  --chart-band: rgb(11 11 11 / 0.04);
+  --chart-fill-1: rgb(11 11 11 / 0.1);
+  --chart-fill-2: rgb(59 208 126 / 0.18);
+  --chart-scale-0: #f1f5f4;
+  --chart-scale-1: #d8ece8;
+  --chart-scale-2: #9ed9c4;
+  --chart-scale-3: #3bd07e;
+  --chart-scale-4: #0c6b4f;
+  --chart-crosshair: rgb(11 11 11 / 0.24);
+}
+
+:root[data-theme="dark"],
+.dark,
+.halo-dark {
+  /* Status lightens on ink so it stays legible; the softs go deep. */
+  --color-success: #3fbe8b;
+  --color-warning: #e9a13b;
+  --color-error: #f2637a;
+  --color-info: #8fa8c6;
+  --color-success-soft: #12261f;
+  --color-warning-soft: #2a1f10;
+  --color-error-soft: #2a1418;
+  --color-info-soft: #161d26;
+
+  /* The mint family darkens rather than disappearing. */
+  --color-mist: #1b2321;
+  --color-mist-strong: #24302c;
+  --color-hairline: #242424;
+
+  --chart-1: #ffffff;
+  --chart-2: #3bd07e;
+  --chart-3: #8fd9bc;
+  --chart-4: #5c8f86;
+  --chart-5: #9aa0a0;
+  --chart-6: #3a4644;
+  --chart-grid: #242424;
+  --chart-axis: var(--color-text-muted-dark);
+  --chart-band: rgb(255 255 255 / 0.05);
+  --chart-fill-1: rgb(255 255 255 / 0.12);
+  --chart-fill-2: rgb(59 208 126 / 0.2);
+  --chart-scale-0: #1b2321;
+  --chart-scale-1: #24302c;
+  --chart-scale-2: #2f5a4b;
+  --chart-scale-3: #3bd07e;
+  --chart-scale-4: #8fe9c0;
+  --chart-crosshair: rgb(255 255 255 / 0.3);
+}

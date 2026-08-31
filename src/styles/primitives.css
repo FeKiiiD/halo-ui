@@ -1,0 +1,122 @@
+/* ---------------------------------------------------------------------------
+ * Halo — primitives
+ *
+ * Structural values that do not belong to any brand: the spacing scale, the
+ * radii, the motion curve, the type ramp's proportions. A theme may override
+ * any of these, but it does not have to: these are the defaults that make the
+ * system coherent on its own.
+ *
+ * Colour lives in a theme, not here. See styles/themes/*.css.
+ * ------------------------------------------------------------------------ */
+
+:root {
+  /* --- Spacing -----------------------------------------------------------
+   * Base 4. NOTE: the scale is deliberately gapped — there is no --space-5,
+   * -7, -9 or -10. A missing custom property voids the whole CSS declaration
+   * silently, which caused real layout bugs in the source system. Do not
+   * "fill in" the gaps; use the neighbouring step.
+   * -------------------------------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-30: 120px;
+  --space-40: 160px;
+
+  /* Layout rhythm */
+  --section-y: 120px;
+  --section-y-mobile: 64px;
+  --card-padding: 32px;
+  --grid-gutter: 24px;
+  --content-max: 1240px;
+  --page-gutter: 24px;
+
+  /* Control heights. "counter" is the standing, at-the-counter touch target. */
+  --control-h: 48px;
+  --control-h-counter: 56px;
+  --control-px: 28px;
+
+  /* --- Radii -------------------------------------------------------------
+   * The pill is a signature, not a preference: every button is a total pill,
+   * with no exception for icon-only or split buttons.
+   * -------------------------------------------------------------------- */
+  --radius-pill: 999px;
+  --radius-card: 24px;
+  --radius-panel: 20px;
+  --radius-chip: 12px;
+  --radius-input: 12px;
+
+  /* --- Shadows -----------------------------------------------------------
+   * Nearly absent by design. Cards carry no shadow and no border — they
+   * separate from the ground by value alone. The one float shadow is for
+   * genuinely floating things: dropdowns, popovers, floating panels.
+   * -------------------------------------------------------------------- */
+  --shadow-float: 0 24px 60px rgb(11 11 11 / 0.12);
+  --shadow-none: none;
+
+  /* --- Motion ------------------------------------------------------------
+   * Hover and press change colour, never position. No lift, no scale, no
+   * shadow bloom, no spring.
+   * -------------------------------------------------------------------- */
+  --ease-standard: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 320ms;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* --- Type ramp ---------------------------------------------------------
+   * Negative tracking on the large sizes is what stops the type reading
+   * generic. Keep it at every breakpoint. Weights top out at 600 — the force
+   * comes from size and tightness, never from 800/900.
+   * -------------------------------------------------------------------- */
+  --fs-display-xl: 76px;
+  --lh-display-xl: 76px;
+  --tr-display-xl: -0.035em;
+  --fs-display-l: 56px;
+  --lh-display-l: 58px;
+  --tr-display-l: -0.03em;
+  --fs-heading-m: 32px;
+  --lh-heading-m: 38px;
+  --tr-heading-m: -0.02em;
+  --fs-heading-s: 20px;
+  --lh-heading-s: 26px;
+  --tr-heading-s: -0.01em;
+  --fs-eyebrow: 15px;
+  --lh-eyebrow: 20px;
+  --fs-body-l: 18px;
+  --lh-body-l: 28px;
+  --fs-body: 16px;
+  --lh-body: 26px;
+  --fs-body-s: 14px;
+  --lh-body-s: 22px;
+  --fs-stat: 48px;
+  --lh-stat: 48px;
+  --tr-stat: -0.02em;
+  --fs-button: 15px;
+  --lh-button: 16px;
+  --fs-app-title: 36px;
+  --lh-app-title: 40px;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --section-y: 64px;
+    /* Display sizes drop but the negative tracking stays. */
+    --fs-display-xl: 40px;
+    --lh-display-xl: 42px;
+    --fs-display-l: 32px;
+    --lh-display-l: 34px;
+    --fs-heading-m: 26px;
+    --lh-heading-m: 31px;
+  }
+}
